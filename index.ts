@@ -1,5 +1,7 @@
-import { createServerRef, attachHandlers } from "./lib/serverUtils";
-import type { DSWebServer, ServerRef, BoundServer, InitializationError } from "./server";
+import { createServerRef } from "./lib/serverUtils";
+import type { ServerRef, BoundServer, InitializationError } from "./server";
+
+//!! convert req handlers to async model
 
 export function createServer(options: any): BoundServer | unknown {
   
