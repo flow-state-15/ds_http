@@ -7,10 +7,10 @@ export interface DSWebServer {
 }
 
 export interface BoundServer {
-  get: (string, GetHandler) => undefined; // queue handler
-  post: (string, PostHandler) => undefined; // queue handler
-  listen: () => undefined; // launches server
-  kill: () => undefined; // kills server
+  get: (string, GetHandler) => void; // queue handler
+  post: (string, PostHandler) => void; // queue handler
+  listen: Listen; // launches server
+  kill: () => void; // kills server
 }
 
 export type ServerRef = () => BoundServer;
@@ -20,9 +20,10 @@ export interface ServerOptions {
   development?: boolean;
 }
 
-export type GetHandler = (request: DSRequest, Response: DSResponse) => Undefined;
-export type PostHandler = (request: DSRequest, Response: DSResponse) => Undefined;
-export type Send = (args: [BodyInit, ResponseInit?]) => Response;
+export type GetHandler = (request: DSRequest, Response: DSResponse) => void;
+export type PostHandler = (request: DSRequest, Response: DSResponse) => void;
+export type Send = (...args: [BodyInit, ResponseInit?]) => void;
+export type Listen = (port?: number, callback?: () => void) => void;
 
 export interface HandlerTables {
   "GET": Record<string, GetHandler[]>;
@@ -30,11 +31,11 @@ export interface HandlerTables {
 }
 
 export interface DSRequest extends Request {
-  [key: string]: any | undefined;
+  [key: string]: any | void;
 }
 
 export interface DSResponse {
-  send: Send | null;
+  send: Send;
   closed: boolean;
   response: Response | null;
 }
