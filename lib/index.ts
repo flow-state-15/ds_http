@@ -8,7 +8,6 @@ export function createServer(options?: ServerOptions): BoundServer {
   const dsServer = serverRef();
 
   if (dsServer) {
-    console.log("listening on port 3000...");
     return dsServer;
   } else {
     console.log("Server initialization failed. Error handling coming soon.");
